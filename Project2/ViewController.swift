@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     
     var countries = [String]()
     var score = 0
-    
+    var correctAnswer = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,14 +35,49 @@ class ViewController: UIViewController {
         button2.layer.borderColor = UIColor.lightGray.cgColor
         button3.layer.borderColor = UIColor.lightGray.cgColor
         
-        askQuestion()
+        // Pass nil to satisfy the parameter requirements.
+        askQuestion(action: nil)
     }
-
-    func askQuestion() {
+    
+    // UIAlertAction parameter necessary given that askQuestion()
+    // is called in UIAlertController closure.
+    func askQuestion(action: UIAlertAction!) {
+        
+        // automagically shuffle the array of countries
+        countries.shuffle()
+        correctAnswer = Int.random(in: 0...2)
+        
         button1.setImage(UIImage(named: countries[0]), for: .normal)
         button2.setImage(UIImage(named: countries[1]), for: .normal)
         button3.setImage(UIImage(named: countries[2]), for: .normal)
+        
+        // title modified to display correct answer uppercased
+        title = countries[correctAnswer].uppercased()
     }
 
+    // All three buttons are attached to the same IBAction but have different tags (0...2)
+    @IBAction func buttonTapped(_ sender: UIButton) {
+        
+        var title: String
+        
+        if sender.tag == correctAnswer {
+            title = "Correct"
+            score += 1
+        } else {
+            title = "Wrong"
+            score -= 1
+        }
+        
+        // Pop-up of AlertController
+        // Note: Can choose .alert or .actionSheet for preferred style
+        let ac = UIAlertController(title: title, message: "Your score is \(score)", preferredStyle: .alert)
+        // Add button to the AlertController (i.e., UIAlertAction)
+        // "handler" is looking for a closure (code that is executed when button is tapped.
+        // We want the game to continue when tapped so we pass in the askQuestion method
+        // (NB: xcode want askQuestion() to accept a UIAction parameter)
+        ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
+        // Then present the UIAlertController
+        present(ac, animated: true)
+    }
 }
 
