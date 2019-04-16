@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     var countries = [String]()
     var score = 0
     var correctAnswer = 0
+    var numberQuestionsAsked = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,8 +52,20 @@ class ViewController: UIViewController {
         button2.setImage(UIImage(named: countries[1]), for: .normal)
         button3.setImage(UIImage(named: countries[2]), for: .normal)
         
-        // title modified to display correct answer uppercased
-        title = countries[correctAnswer].uppercased()
+        modifyTitle()
+        
+        numberQuestionsAsked += 1
+    }
+    
+    func modifyTitle() {
+    // title modified to display correct answer uppercased
+    title = "\(countries[correctAnswer].uppercased()) -- Score: \(score)"
+    }
+    
+    func resetGame(action: UIAlertAction!) {
+        score = 0
+        numberQuestionsAsked = 0
+        askQuestion(action: nil)
     }
 
     // All three buttons are attached to the same IBAction but have different tags (0...2)
@@ -64,20 +77,34 @@ class ViewController: UIViewController {
             title = "Correct"
             score += 1
         } else {
-            title = "Wrong"
+            title = "Wrong. That's the flag of \(countries[sender.tag].uppercased())"
             score -= 1
         }
         
-        // Pop-up of AlertController
-        // Note: Can choose .alert or .actionSheet for preferred style
-        let ac = UIAlertController(title: title, message: "Your score is \(score)", preferredStyle: .alert)
-        // Add button to the AlertController (i.e., UIAlertAction)
-        // "handler" is looking for a closure (code that is executed when button is tapped.
-        // We want the game to continue when tapped so we pass in the askQuestion method
-        // (NB: xcode want askQuestion() to accept a UIAction parameter)
-        ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
-        // Then present the UIAlertController
-        present(ac, animated: true)
+        modifyTitle()
+        
+        if numberQuestionsAsked == 10 {
+            // Pop-up of AlertController
+            // Note: Can choose .alert or .actionSheet for preferred style
+            let ac = UIAlertController(title: title, message: "Your FINAL score is \(score)", preferredStyle: .alert)
+            // Add button to the AlertController (i.e., UIAlertAction)
+            // "handler" is looking for a closure (code that is executed when button is tapped.
+            // We want the game to continue when tapped so we pass in the askQuestion method
+            // (NB: xcode want askQuestion() to accept a UIAction parameter)
+            ac.addAction(UIAlertAction(title: "Play Again?", style: .default, handler: resetGame))
+            // Then present the UIAlertController
+            present(ac, animated: true)
+        } else {
+            // Pop-up of AlertController
+            // Note: Can choose .alert or .actionSheet for preferred style
+            let ac = UIAlertController(title: title, message: "Your score is \(score)", preferredStyle: .alert)
+            // Add button to the AlertController (i.e., UIAlertAction)
+            // "handler" is looking for a closure (code that is executed when button is tapped.
+            // We want the game to continue when tapped so we pass in the askQuestion method
+            // (NB: xcode want askQuestion() to accept a UIAction parameter)
+            ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
+            // Then present the UIAlertController
+            present(ac, animated: true)
+        }
     }
 }
-
