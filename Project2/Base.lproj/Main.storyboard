@@ -19,21 +19,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPm-Fz-gc4">
-                                <rect key="frame" x="199" y="152" width="16" height="22"/>
+                                <rect key="frame" x="107" y="230" width="200" height="100"/>
                                 <state key="normal" image="us"/>
                                 <connections>
                                     <action selector="buttonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="R4h-vu-EsH"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3xK-Kc-x6W">
-                                <rect key="frame" x="199" y="204" width="16" height="22"/>
+                                <rect key="frame" x="107" y="360" width="200" height="100"/>
                                 <state key="normal" image="us"/>
                                 <connections>
                                     <action selector="buttonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Teo-Ae-jqY"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oWg-Fp-Fgt">
-                                <rect key="frame" x="199" y="100" width="16" height="22"/>
+                                <rect key="frame" x="107" y="100" width="200" height="100"/>
                                 <state key="normal" image="us"/>
                                 <connections>
                                     <action selector="buttonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zfu-hB-C3d"/>
@@ -51,7 +51,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Qma-SA-iS8"/>
+                    <navigationItem key="navigationItem" id="Qma-SA-iS8">
+                        <barButtonItem key="rightBarButtonItem" title="Score" id="Ulz-vF-wyV">
+                            <connections>
+                                <action selector="scoreTapped:" destination="BYZ-38-t0r" id="yoH-vj-MAz"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="button1" destination="oWg-Fp-Fgt" id="uBP-os-3uM"/>
                         <outlet property="button2" destination="EPm-Fz-gc4" id="o8w-A0-E7B"/>

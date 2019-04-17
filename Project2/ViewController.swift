@@ -107,4 +107,10 @@ class ViewController: UIViewController {
             present(ac, animated: true)
         }
     }
+    
+    @IBAction func scoreTapped(_ sender: UIBarButtonItem) {
+        let ac = UIAlertController(title: "Score", message: "Your score is \(score)", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(ac, animated: true)
+    }
 }
